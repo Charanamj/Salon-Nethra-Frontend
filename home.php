@@ -8,7 +8,7 @@
             <p>We as professionals in hair care & beauty meet our customers requirements & try to fulfil them.</p>
           </blockquote>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="appointment.php" class="btn-get-started">Get An Appointment</a>
+            <a href="appointments/newappointment.php" class="btn-get-started">Get An Appointment</a>
             <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
           </div>
 

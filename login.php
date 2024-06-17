@@ -2,8 +2,76 @@
 include 'header.php';
 ?>
 <main id="main">
+<<<<<<< Updated upstream
    <!-- ======= Contact Us Section ======= -->
    <section>
+=======
+<head>
+<script src="<?= SYSTEM_PATHS ?>assets/js/sweetalert2.all.js"></script>
+</head>
+<body>
+
+    <?php
+    extract($_POST);
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        extract($_POST);
+        $customer_email = dataClean($customer_email);
+        $customer_password = dataClean($customer_password);
+
+        $messages = array();
+
+        if (empty($customer_email)) {
+            $messages['customer_email'] = "The User Name should not be empty ..!";
+        }
+        if (!empty($customer_email)) {
+            $db = dbConn();
+            $sql = "SELECT * FROM  tbl_customers WHERE customer_email='$customer_email'";
+            $result = $db->query($sql);
+            if ($result->num_rows > 0) {
+                $psw = sha1($customer_password);
+                $rowpsw = $result->fetch_assoc();
+                $dbuserpsw = $rowpsw['customer_password'];
+                if ($psw === $dbuserpsw) {
+                    $_SESSION['LogId'] = $rowpsw['customer_id'];
+                    $_SESSION['LogTitle'] = $rowpsw['customer_title'];
+                    $_SESSION['LogGender'] = $rowpsw['customer_gender'];
+                    $_SESSION['LogFirstname'] = $rowpsw['customer_firstname'];
+                    $_SESSION['LogLastname'] = $rowpsw['customer_lastname'];
+                    $_SESSION['LogIdnum'] = $rowpsw['customer_nic'];
+                    $_SESSION['LogAddressline1'] = $rowpsw['customer_addressline1'];
+                    $_SESSION['LogAddressline2'] = $rowpsw['customer_addressline2'];
+                    $_SESSION['LogEmail'] = $rowpsw['customer_email'];
+                    $_SESSION['LogTelNo'] = $rowpsw['customer_mobilenumber'];
+                    $_SESSION['LogImg'] = $rowpsw['customer_image'];
+                    $_SESSION['LogUserName'] = $rowpsw['customer_username'];
+                    $_SESSION['LogPasw'] = $rowpsw['customer_password'];
+
+                    echo "<script>
+        Swal.fire({
+            title: 'Logged in!',
+            text: 'Login Successful !.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.href = 'http://localhost/SMS/web/index.php'; // Redirect to success page
+        });
+</script>";                     
+                } else {
+                    $messages['customer_password'] = "The Password is wrong";
+                }
+            } else {
+                $messages['customer_email'] = "This email is not in the database";
+            }
+
+        }
+
+        if (empty($customer_password)) {
+            $messages['customer_password'] = "The Password Should not be empty";
+        }
+    }
+    ?>
+<section>
+>>>>>>> Stashed changes
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
