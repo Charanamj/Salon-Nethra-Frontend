@@ -1,13 +1,9 @@
-<?php
-include 'header.php';
-?>
+<?php ob_start(); ?>
+<?php include 'header.php';?>
+
 <main id="main">
-<<<<<<< Updated upstream
-   <!-- ======= Contact Us Section ======= -->
-   <section>
-=======
 <head>
-<script src="<?= SYSTEM_PATHS ?>assets/js/sweetalert2.all.js"></script>
+<script src="<?= SYSTEM_PATH ?>assets/js/sweetalert2.all.js"></script>
 </head>
 <body>
 
@@ -71,7 +67,6 @@ include 'header.php';
     }
     ?>
 <section>
->>>>>>> Stashed changes
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -81,25 +76,27 @@ include 'header.php';
 
         <div class="row justify-content-center">
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+          <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <div class="form-group mt-3">
-                            <label for="name">User Name</label>
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-                        </div>
+                            <label for="name">Email Address</label>
+                            <input type="text" class="form-control" name="customer_email" value="<?= @$customer_email ?>" placeholder="Enter your email address">
+                            <span class="text-danger"><?= @$messages['customer_email'] ?></span>
+                          </div>
                         <div class="form-group mt-3">
                             <label for="name">Password</label>
-                            <input type="password" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-                        </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+                            <input type="text" class="form-control" name="customer_password" value="<?= @$customer_password ?>" placeholder="Enter password">
+                            <span class="text-danger"><?= @$messages['customer_password'] ?></span>
+                          </div>
+                        <a href="forgetpassword.php">Forgot password</a>
+            <p>Don't have an account ? <a href="register.php">Sign Up Here</a> </p>
+              <div class="text-center"><button type="submit">Log in</button></div>
             </form>
           </div>
-
         </div>
-
       </div>
-    </section><!-- End Contact Us Section -->
+</section>
+</body>
 </main>
-
 <?php
 include 'footer.php';
 ?>
