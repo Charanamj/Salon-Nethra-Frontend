@@ -66,8 +66,18 @@ session_start();
           <li><a href="<?= SYSTEM_PATHS ?>team.php">Our Team</a></li>
           <li><a href="<?= SYSTEM_PATHS ?>contact.php">Contact Us</a></li>
           <li><a class="getstarted scrollto" href="<?= SYSTEM_PATHS ?>register.php">Registration</a></li>
-          <li><a class="getstarted scrollto" href="<?= SYSTEM_PATHS ?>login.php">Log in</a></li>
+          <?php if(empty($_SESSION['LogEmail'])){ ?>
+          <li><a class="getstarted scrollto" href="<?= SYSTEM_PATHS ?>login.php">Log in</a></li><?php
+          }
+          ?>
+          <?php 
+              if(!empty($_SESSION['LogEmail'])){ ?>
+                <li><a class="getstarted scrollto" href="<?= SYSTEM_PATHS ?>logout.php">Log Out</a></li><?php
+
+              }
+          ?>
+          
         </ul>
-      </nav><!-- .navbar -->
+      </nav>
     </div>
-  </header><!-- End Header -->
+  </header>

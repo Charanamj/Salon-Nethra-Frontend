@@ -1,4 +1,4 @@
-<!-- ======= Footer ======= -->
+<?php ob_end_flush();?>
 <footer id="footer" class="footer">
 
 <div class="footer-content">

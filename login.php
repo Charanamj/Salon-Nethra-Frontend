@@ -1,6 +1,9 @@
-<?php ob_start(); ?>
 <?php include 'header.php';?>
-
+<?php
+if (!empty($_SESSION['LogEmail'])) {
+    header("Location:index.php");
+}
+?>
 <main id="main">
 <head>
 <script src="<?= SYSTEM_PATH ?>assets/js/sweetalert2.all.js"></script>
@@ -42,16 +45,30 @@
                     $_SESSION['LogUserName'] = $rowpsw['customer_username'];
                     $_SESSION['LogPasw'] = $rowpsw['customer_password'];
 
-                    echo "<script>
-        Swal.fire({
-            title: 'Logged in!',
-            text: 'Login Successful !.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        }).then(() => {
-            window.location.href = 'http://localhost/SMS/web/index.php'; // Redirect to success page
-        });
-</script>";                     
+                    if(@$redirect=='yes'){
+                      echo "<script>
+                      Swal.fire({
+                          title: 'Logged in!',
+                          text: 'Login Successful !.',
+                          icon: 'success',
+                          confirmButtonText: 'OK'
+                      }).then(() => {
+                          window.location.href = 'http://localhost/SMS/web/appointments/selectedappointment.php'; // Redirect to success page
+                      });
+              </script>"; 
+                    }else{
+                      echo "<script>
+                      Swal.fire({
+                          title: 'Logged in!',
+                          text: 'Login Successful !.',
+                          icon: 'success',
+                          confirmButtonText: 'OK'
+                      }).then(() => {
+                          window.location.href = 'http://localhost/SMS/web/index.php'; // Redirect to success page
+                      });
+              </script>"; 
+                    }
+                                        
                 } else {
                     $messages['customer_password'] = "The Password is wrong";
                 }
@@ -77,6 +94,10 @@
         <div class="row justify-content-center">
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
           <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+          <?php if ($_SERVER['REQUEST_METHOD'] == "GET") {
+                           extract($_GET);
+                           $redirect = @$app;
+                          } ?>
             <div class="form-group mt-3">
                             <label for="name">Email Address</label>
                             <input type="text" class="form-control" name="customer_email" value="<?= @$customer_email ?>" placeholder="Enter your email address">
@@ -84,13 +105,16 @@
                           </div>
                         <div class="form-group mt-3">
                             <label for="name">Password</label>
-                            <input type="text" class="form-control" name="customer_password" value="<?= @$customer_password ?>" placeholder="Enter password">
+                            <input type="password" class="form-control" name="customer_password" value="<?= @$customer_password ?>" placeholder="Enter password">
+                            <input type="hidden" name="redirect" value="<?= @$redirect ?>">
                             <span class="text-danger"><?= @$messages['customer_password'] ?></span>
                           </div>
+                          
                         <a href="forgetpassword.php">Forgot password</a>
+                      
             <p>Don't have an account ? <a href="register.php">Sign Up Here</a> </p>
               <div class="text-center"><button type="submit">Log in</button></div>
-            </form>
+  </form>
           </div>
         </div>
       </div>

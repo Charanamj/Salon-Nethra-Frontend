@@ -1,4 +1,5 @@
 <?php
+
 include '../header.php';
 include '../assets/phpmail/mail.php';
 ?>
@@ -13,59 +14,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($service_name)) {
         $message['service_name'] = "The service name should be select...!";
     }
-    if (!empty($time_slot_name)) {
-        $sql = "SELECT * FROM tbl_appointments WHERE booking_date='$bookeddate'AND time_slot_id='$time_slot_name'";
-        $db = dbConn();
-        $results = $db->query($sql);
-        if ($results->num_rows >= 3) {
-            $message['time_slot_name'] = "This date cannot enter in the database";    
-        }
-    }
-    if (!isset($_SESSION['LogId'])) {
-        $message['time_slot_namez'] = "This date cannot enter in the database";
-        echo "<script>
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'You have to Login to the system to make bookings !.',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    window.location.href = 'http://localhost/SMS/web/login.php?app=yes'; // Redirect to login page
-                });
-        </script>";
-    }else{
-        $_SESSION["servicename"] = $service_name;
-        $_SESSION["timeslot"] = $time_slot_name;
-    }
-    if (empty($service_name)) {
-        $message['service_name'] = "The service name should be select...!";
-    }
     if (empty($message)) {
         $db = dbConn();
-        $AddDate = date('y-m-d');
-        $status = 1;
         $bookDate = $_SESSION["bookeddate"];
-        $loggedCustomerId = $_SESSION['LogId'];
-        $sql1 = "SELECT * FROM tbl_services WHERE service_id= $service_name";
-        $result1 = $db->query($sql1);
-        $row1 = $result1->fetch_assoc();
-        $servicecategory = $row1['service_category_id'];
-        $sql = "INSERT INTO tbl_appointments(service_category, service_name, customer_id, booking_date, time_slot_id) 
-                        VALUES ('$servicecategory','$service_name','$loggedCustomerId','$bookDate','$time_slot_name')";
+        $sql = "INSERT INTO tbl_appointments(service_name, booking_date, time_slot_id) 
+                        VALUES ('$service_name','$bookDate','$time_slot_name')";
         $db->query($sql);
 
         echo "<script>
                 Swal.fire({
-                    title: 'Success!',
-                    text: 'You have sucessfully made a booking !.',
+                    title: 'Added!',
+                    text: 'Added Successfully !.',
                     icon: 'success',
                     confirmButtonText: 'OK'
                 }).then(() => {
-                    window.location.href = 'http://localhost/SMS/web/paymentsection.php'; // Redirect to success page
+                    window.location.href = 'http://localhost/SMS/web/index.php'; // Redirect to success page
                 });
         </script>";
     }
 }
+
 ?>
 <main id="main">
     <section>
@@ -76,9 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                 <div class="form-group mt-3">
                         <label for="exampleInputName1">Selected Appointment Date</label>
-                        <input type="text" id="exampleInputName1" name="bookeddate" value="<?= $_SESSION["bookeddate"] ?>" readonly>
-                        <input type="hidden" id="exampleInputName1" name="bookeddate" value="<?= $_SESSION["bookeddate"] ?>">
-                    </div>
+                        <input type="text" id="exampleInputName1" name="bokkeddate" value="<?= $_SESSION["bookeddate"] ?>" readonly>
+                </div>
                     <div class="form-group mt-3">
                         <?php
                         $db = dbConn();
@@ -115,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             while ($row = $result->fetch_assoc()) {
                                 ?>
                                 <option value="<?= $row['time_slot_id'] ?>">
-                                    <?= $row['time_slot_name'] . " " . " [ ". $row['time_slot_start_time'] . " - " . " " . $row['time_slot_end_time'] . " ] "?>
+                                    <?= $row['time_slot_name'] ?>
                                 </option>
                                 <?php
                             }
@@ -130,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
         </div>
-    </section>
+    </section><!-- End Contact Us Section -->
 </main>
 <?php
 include '../footer.php';

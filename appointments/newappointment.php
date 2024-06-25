@@ -7,6 +7,7 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
 
     $bookingdate = dataClean($bookingdate);
 
+
     $messages = array();
     if (empty($bookingdate)) {
         $messages['bookingdate'] = "Date should be select";
@@ -17,7 +18,8 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
         $bookdate = strtotime($bookingdate);
         $currentdate = date('y-m-d');
         $currentdate = strtotime($currentdate);
-
+        $dayId = date('w', strtotime($bookingdate));
+        $_SESSION["dayId"]= $dayId;
         if ($currentdate > $bookingdate) {
             $messages['bookingdate'] = "Cannot Select Date";
         }
@@ -26,16 +28,16 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
             $sql = "SELECT * FROM tbl_appointments WHERE booking_date='$bookingdate'";
             $db = dbConn();
             $results = $db->query($sql);
-            if ($results->num_rows > 0) {
-                $messages['bookingdate'] = "This date cannot cannot enter in the database";    
+            if ($results->num_rows >= 27) {
+                $messages['bookingdate'] = "This date cannot enter in the database";    
             }else{
                 $_SESSION["bookeddate"]= $bookingdate;
                 echo "<script>
                 Swal.fire({
-                    title: 'Added!',
-                    text: 'Added Successfully !.',
+                    title: 'success!',
+                    text: 'You have selected a date for your booking !.',
                     icon: 'success',
-                    confirmButtonText: 'OK'
+                    confirmButtonText: 'NEXT'
                 }).then(() => {
                     window.location.href = 'http://localhost/SMS/web/appointments/selectedappointment.php'; // Redirect to success page
                 });
@@ -55,7 +57,7 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
                     <div class="form-outline ">
                         <div class="form-outline mb-2">
                             <label class="form-label" for="form1Example13">Booking Date</label>
-                            <input type="date" class="form-control form-control-sm" id="city"  name="bookingdate"  min='<?= date("Y-m-d")?>' max='<?php echo date("Y-m-d", strtotime("+14 days")); ?>' value="<?= @$bookingdate; ?>">
+                            <input type="date" class="form-control form-control-sm" id="date"  name="bookingdate"  min='<?= date("Y-m-d")?>' max='<?php echo date("Y-m-d", strtotime("+14 days")); ?>' value="<?= @$bookingdate; ?>">
                             <div class="text-danger"> <?= @$messages['bookingdate']; ?></div>
                         </div>
                     </div>          
