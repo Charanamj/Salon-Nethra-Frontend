@@ -43,15 +43,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($message)) {
         $db = dbConn();
         $AddDate = date('y-m-d');
-        $status = 1;
+        $appointmentNo = date('YmdHis');
         $bookDate = $_SESSION["bookeddate"];
         $loggedCustomerId = $_SESSION['LogId'];
         $sql1 = "SELECT * FROM tbl_services WHERE service_id= $service_name";
         $result1 = $db->query($sql1);
         $row1 = $result1->fetch_assoc();
         $servicecategory = $row1['service_category_id'];
-        $sql = "INSERT INTO tbl_appointments(service_category, service_name, customer_id, booking_date, time_slot_id) 
-                        VALUES ('$servicecategory','$service_name','$loggedCustomerId','$bookDate','$time_slot_name')";
+        $appstatus = 1;
+        $sql = "INSERT INTO tbl_appointments(appointment_no, service_category, service_name, customer_id, booking_date, time_slot_id, appointment_status, add_date) 
+                        VALUES ('$appointmentNo','$servicecategory','$service_name','$loggedCustomerId','$bookDate','$time_slot_name','$appstatus','$AddDate')";
         $db->query($sql);
 
         echo "<script>

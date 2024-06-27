@@ -226,8 +226,8 @@ include 'assets/phpmail/mail.php';
                     <!-- Body -->
                     <tr>
                         <td class='body' style='padding: 40px; text-align: left; font-size: 16px; line-height: 1.6;'>
-                        Hello, All! <br>
-                        Lorem odio soluta quae dolores sapiente voluptatibus recusandae aliquam fugit ipsam.
+                        Hello, $customer_firstname . $customer_lastname <br>
+                        Welcome to Salon Nethra, Thank you for register with us. Your Account has been successfully created 
                         <br><br>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam corporis sint eum nemo animi velit exercitationem impedit. Incidunt, officia facilis  atque? Ipsam voluptas fugiat distinctio blanditiis veritatis.            
                         </td>
@@ -240,7 +240,7 @@ include 'assets/phpmail/mail.php';
                             <table cellspacing='0' cellpadding='0' style='margin: auto;''>
                                 <tr>
                                     <td align='center' style='background-color: #345C72; padding: 10px 20px; border-radius: 5px;'>
-                                        <a href='https://www.yourwebsite.com' target='_blank' style='color: #ffffff; text-decoration: none; font-weight: bold;'>Book a Free Consulatation</a>
+                                        <a href='https://www.yourwebsite.com' target='_blank' style='color: #ffffff; text-decoration: none; font-weight: bold;'>Book an Free Consulatation</a>
                                     </td>
                                 </tr>
                             </table>
@@ -254,7 +254,7 @@ include 'assets/phpmail/mail.php';
                     <!-- Footer -->
                     <tr>
                         <td class='footer' style='background-color: #333333; padding: 40px; text-align: center; color: white; font-size: 14px;'>
-                        Copyright &copy; 2024 | Your brand name
+                        Copyright &copy; 2024 | salonnethra
                         </td>
                     </tr>
                 </table>
