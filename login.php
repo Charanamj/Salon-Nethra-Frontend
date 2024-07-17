@@ -1,6 +1,6 @@
 <?php include 'header.php';?>
 <?php
-if (!empty($_SESSION['LogEmail'])) {
+if (!empty($_SESSION['cLogEmail'])) {
     header("Location:index.php");
 }
 ?>
@@ -31,19 +31,19 @@ if (!empty($_SESSION['LogEmail'])) {
                 $rowpsw = $result->fetch_assoc();
                 $dbuserpsw = $rowpsw['customer_password'];
                 if ($psw === $dbuserpsw) {
-                    $_SESSION['LogId'] = $rowpsw['customer_id'];
-                    $_SESSION['LogTitle'] = $rowpsw['customer_title'];
-                    $_SESSION['LogGender'] = $rowpsw['customer_gender'];
-                    $_SESSION['LogFirstname'] = $rowpsw['customer_firstname'];
-                    $_SESSION['LogLastname'] = $rowpsw['customer_lastname'];
-                    $_SESSION['LogIdnum'] = $rowpsw['customer_nic'];
-                    $_SESSION['LogAddressline1'] = $rowpsw['customer_addressline1'];
-                    $_SESSION['LogAddressline2'] = $rowpsw['customer_addressline2'];
-                    $_SESSION['LogEmail'] = $rowpsw['customer_email'];
-                    $_SESSION['LogTelNo'] = $rowpsw['customer_mobilenumber'];
-                    $_SESSION['LogImg'] = $rowpsw['customer_image'];
-                    $_SESSION['LogUserName'] = $rowpsw['customer_username'];
-                    $_SESSION['LogPasw'] = $rowpsw['customer_password'];
+                    $_SESSION['cLogId'] = $rowpsw['customer_id'];
+                    $_SESSION['cLogTitle'] = $rowpsw['customer_title'];
+                    $_SESSION['cLogGender'] = $rowpsw['customer_gender'];
+                    $_SESSION['cLogFirstname'] = $rowpsw['customer_firstname'];
+                    $_SESSION['cLogLastname'] = $rowpsw['customer_lastname'];
+                    $_SESSION['cLogIdnum'] = $rowpsw['customer_nic'];
+                    $_SESSION['cLogAddressline1'] = $rowpsw['customer_addressline1'];
+                    $_SESSION['cLogAddressline2'] = $rowpsw['customer_addressline2'];
+                    $_SESSION['cLogEmail'] = $rowpsw['customer_email'];
+                    $_SESSION['cLogTelNo'] = $rowpsw['customer_mobilenumber'];
+                    $_SESSION['cLogImg'] = $rowpsw['customer_image'];
+                    $_SESSION['cLogUserName'] = $rowpsw['customer_username'];
+                    $_SESSION['cLogPasw'] = $rowpsw['customer_password'];
 
                     if(@$redirect=='yes'){
                       echo "<script>
