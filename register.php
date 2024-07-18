@@ -203,7 +203,7 @@ include 'assets/phpmail/mail.php';
                         
                             $to = $customer_email;
                             $toname = $customer_firstname . $customer_lastname;
-                            $subject = 'Verification of the Customer';
+                            $subject = 'Registration with the System - Salon Nethra';
                             $body = "<!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -226,7 +226,7 @@ include 'assets/phpmail/mail.php';
                     <!-- Body -->
                     <tr>
                         <td class='body' style='padding: 40px; text-align: left; font-size: 16px; line-height: 1.6;'>
-                        Hello, $customer_firstname . $customer_lastname <br>
+                        Hello, $customer_firstname $customer_lastname <br>
                         Welcome to Salon Nethra, Thank you for register with us. Your Account has been successfully created 
                         <br><br>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam corporis sint eum nemo animi velit exercitationem impedit. Incidunt, officia facilis  atque? Ipsam voluptas fugiat distinctio blanditiis veritatis.            

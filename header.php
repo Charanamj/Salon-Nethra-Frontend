@@ -72,6 +72,7 @@ session_start();
           ?>
           <?php 
               if(!empty($_SESSION['cLogEmail'])){ ?>
+               <li><a class="getstarted scrollto" href="<?= SYSTEM_PATHS ?>profile.php"><?= $_SESSION["cLogUserName"] ?></a></li>
                 <li><a class="getstarted scrollto" href="<?= SYSTEM_PATHS ?>logout.php">Log Out</a></li><?php
 
               }

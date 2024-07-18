@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($message)) {
         $db = dbConn();
         $AddDate = date('y-m-d');
+        $_SESSION["service_id"] = $service_name;
         $appointmentNo = date('YmdHis');
         $_SESSION["selectedappno"] = $appointmentNo;
         $bookDate = $_SESSION["bookeddate"];
@@ -99,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 ?>
                                 <option value="<?= $row['service_id'] ?>">
                                     <?= $row['service_name'] . " | Rs. " . number_format($row['service_price'], 2) ?>
-                                    <?php $_SESSION["serviceprice"] = $row['service_price']; ?>
+                                    
                                 </option>
                                 <?php
                             }
