@@ -50,7 +50,7 @@ include 'assets/phpmail/mail.php';
                         $message['customer_image'] = "The image should be select...!";
                     }
                     if (empty($customer_email)) {
-                        $message['customer_email'] = "The first name should not be blank...!";
+                        $message['customer_email'] = "The email address should not be blank...!";
                     }
                     if (empty($customer_mobilenumber)) {
                         $message['customer_mobilenumber'] = "Mobile number should not be blank...!";

@@ -1,9 +1,9 @@
-<?php 
+<?php
 include '../header.php';
 ?>
 <?php
 extract($_POST);
-if ($_SERVER ['REQUEST_METHOD'] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $bookingdate = dataClean($bookingdate);
 
@@ -19,7 +19,7 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
         $currentdate = date('y-m-d');
         $currentdate = strtotime($currentdate);
         $dayId = date('w', strtotime($bookingdate));
-        $_SESSION["dayId"]= $dayId;
+        $_SESSION["dayId"] = $dayId;
         if ($currentdate > $bookingdate) {
             $messages['bookingdate'] = "Cannot Select Date";
         }
@@ -29,9 +29,9 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
             $db = dbConn();
             $results = $db->query($sql);
             if ($results->num_rows >= 27) {
-                $messages['bookingdate'] = "This date cannot enter in the database";    
-            }else{
-                $_SESSION["bookeddate"]= $bookingdate;
+                $messages['bookingdate'] = "This date cannot enter in the database";
+            } else {
+                $_SESSION["bookeddate"] = $bookingdate;
                 echo "<script>
                 Swal.fire({
                     title: 'success!',
@@ -48,28 +48,32 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
 }
 ?>
 
-<div class="container">
-    <section class="justify-content-center">
-        <div class="row">
-            <div class="col-md-7 " style="box-shadow: 5px 5px 5px 5px #888888;"> 
-                <form  class="col-md-9 justify-content-center" method="POST"  action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">            
-                    <h1 class="title text-center">Book An Appointment</h1>
-                    <div class="form-outline ">
-                        <div class="form-outline mb-2">
-                            <label class="form-label" for="form1Example13">Booking Date</label>
-                            <input type="date" class="form-control form-control-sm" id="date"  name="bookingdate"  min='<?= date("Y-m-d")?>' max='<?php echo date("Y-m-d", strtotime("+14 days")); ?>' value="<?= @$bookingdate; ?>">
-                            <div class="text-danger"> <?= @$messages['bookingdate']; ?></div>
+<div class="container-fluid appointment-container">
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-12 img-div">
+                    <img class="img-fluid" src="../assets/img/high-fashion-look-glamor-closeup-portrait-beautiful-sexy-stylish-blond-caucasian-young-woman-model-with-bright-makeup.jpg">
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12 form-xs">
+                <form class="form-center-streched" method="POST"
+                        action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                        <h1 class="title text-center">Book An Appointment</h1>
+                        <div class="form-outline ">
+                            <div class="form-outline mb-2">
+                                <label class="form-label" for="form1Example13">Booking Date</label>
+                                <input type="date" class="form-control form-control-sm date-input" id="date" name="bookingdate"
+                                    min='<?= date("Y-m-d") ?>' max='<?php echo date("Y-m-d", strtotime("+14 days")); ?>'
+                                    value="<?= @$bookingdate; ?>">
+                                <div class="text-danger"> <?= @$messages['bookingdate']; ?></div>
+                            </div>
                         </div>
-                    </div>          
-                    <button type="submit" action="action" value="pass" class="btn btn-primary btn-lg btn-block">Create a Booking</button>
-                    <div class="divider d-flex align-items-center my-4">
-                        <p class="text-center fw-bold mx-3 mb-0 text-muted"></p>
-                    </div>
-                </form>
+                        <button type="submit" action="action" value="pass"
+                            class="btn btn-primary btn-lg btn-block">Create a Booking</button>
+                        <div class="divider d-flex align-items-center my-4">
+                            <p class="text-center fw-bold mx-3 mb-0 text-muted"></p>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    </section>
+    </div>
 </div>
-
-
-

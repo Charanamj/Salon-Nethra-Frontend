@@ -12,7 +12,7 @@ include 'header.php';
 
         <div class="row g-0" data-aos="fade-up" data-aos-delay="200">
 
-          <div class="col-xl-5 img-bg" style="background-image: url('assets/img/why-us-bg.jpg')"></div>
+          <div class="col-xl-5 img-bg" style="background-image: url('assets/img/bgaboutus.jpg')"></div>
           <div class="col-xl-7 slides  position-relative">
 
             <div class="slides-1 swiper">
@@ -21,8 +21,8 @@ include 'header.php';
                 <div class="swiper-slide">
                   <div class="item">
                     <h3 class="mb-3">Because we got you covered</h3>
-                    <h4 class="mb-3">Optio reiciendis accusantium iusto architecto at quia minima maiores quidem, dolorum.</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, ipsam perferendis asperiores explicabo vel tempore velit totam, natus nesciunt accusantium dicta quod quibusdam ipsum maiores nobis non, eum. Ullam reiciendis dignissimos laborum aut, magni voluptatem velit doloribus quas sapiente optio.</p>
+                    <h4 class="mb-3">We are the Leaders</h4>
+                    <p>Fashion is a very important thing where both women & men trying their best to keep maintain some kind of attire for them to be identified in the society. From the beginning of the habitancy of mankind, fashion is becoming a changing field time to time. Salons also follow the latest trends in society & help to develop those into a fashionable attire. They are trying to reach their customers by giving them the utmost service that they can give</p>
                   </div>
                 </div><!-- End slide item -->
 

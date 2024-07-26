@@ -233,9 +233,8 @@ section {
 # Header
 --------------------------------------------------------------*/
 .header {
-  transition: all 0.5s;
-  z-index: 997;
-  padding: 24px 0;
+  background: rgba(27, 47, 69, 0.9);
+  padding: 18px 15px;
 }
 
 @media (max-width: 1200px) {
@@ -260,6 +259,10 @@ section {
   color: #fff;
   font-family: var(--font-secondary);
   margin: 0;
+}
+
+.fixed-top {
+  position: relative !important;
 }
 
 /*--------------------------------------------------------------
@@ -495,7 +498,7 @@ section {
 .hero {
   width: 100%;
   min-height: 100vh;
-  background: url("../img/hero-bg.jpg") top center;
+  background: url("../img/bgfront.jpg") top center;
   background-size: cover;
   position: relative;
   padding: 120px 0;
@@ -2175,4 +2178,56 @@ section {
   text-align: center;
   font-size: 13px;
   color: var(--color-secondary);
+}
+
+/*------------------------------ appointment-container------------------------------ */
+
+
+.appointment-container {
+  /* background: #31435770; */
+  min-height: 90vh;
+}
+
+.appointment-container .form-xs {
+  display: flex;
+  min-height: 80vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.appointment-container .img-div img{
+  border-top-right-radius: 180px;
+  filter: drop-shadow(1px 12px 6px black);
+}
+.form-center-streched{
+  display: flex;
+  justify-content: center !important;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 25px;
+}
+.form-center-streched button{
+  background: #314357;
+  border: none;
+  border-radius: 0px;
+  transition: 500ms;
+}
+.form-center-streched button:hover{
+  background: #5f85af;
+  transition: 500ms all cubic-bezier(0.42, 0, 0.44, 1.17);
+  margin-top: 10px;
+}
+.date-input{
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 0px;
+  padding-left: 0px;
+  transition: 500ms;
+  border-bottom: 1px solid #314357;
+}
+.date-input:hover,
+.date-input:focus{
+  border-bottom: 3px solid #314357;
+  transition: 500ms
 }
