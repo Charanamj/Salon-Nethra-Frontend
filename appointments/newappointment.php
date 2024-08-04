@@ -55,8 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <img class="img-fluid" src="../assets/img/high-fashion-look-glamor-closeup-portrait-beautiful-sexy-stylish-blond-caucasian-young-woman-model-with-bright-makeup.jpg">
                 </div>
                 <div class="col-lg-6 col-md-6 col-xs-12 form-xs">
-                <form class="form-center-streched" method="POST"
-                        action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                        <form  class="form-center-streched" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">     
                         <h1 class="title text-center">Book An Appointment</h1>
                         <div class="form-outline ">
                             <div class="form-outline mb-2">

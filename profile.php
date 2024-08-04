@@ -64,7 +64,7 @@
                       <h6 class="mb-0">Address</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <?php echo $_SESSION["cLogAddressline1"] . "" . $_SESSION["cLogAddressline2"]?>
+                      <?php echo $_SESSION["cLogAddressline1"] . ", " . $_SESSION["cLogAddressline2"]?>
                     </div>
                   </div>
                   <hr>

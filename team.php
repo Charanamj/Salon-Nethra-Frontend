@@ -11,7 +11,8 @@ include 'header.php';
         <div class="row gy-5">
             <?php
             $db = dbConn();
-            $sql = "SELECT * FROM `tbl_staff` INNER JOIN designation ON tbl_staff.staff_designation = designation.designation_id";
+            $sql = "SELECT * FROM `tbl_staff` INNER JOIN designation ON tbl_staff.staff_designation = designation.designation_id 
+            where tbl_staff.staff_designation != '7' ";
             $result = $db->query($sql);
             ?>
             <?php
@@ -32,11 +33,13 @@ include 'header.php';
                             <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i
                                     class="bi bi-arrow-right"></i></a>
                         </div>
-                        <?php
-                }
-            }
-            ?>
-            </div>
+                      
+
+            </div>  
+            <?php
+        }
+    }
+    ?>
         </div>
     </div>
 </section>

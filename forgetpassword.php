@@ -127,7 +127,7 @@ include 'header.php';
                         $_SESSION['ResetUserRole']=$row['UserRole'];
                         $_SESSION['ResetUserEmail']=$row['email'];
                       
-                        echo $resettoken=uniqid();
+                         $resettoken=uniqid();
                     
                         $ResetEmail=$row['email'];
                     //Create a variable & assign value to it
@@ -135,7 +135,7 @@ include 'header.php';
                     //Create varibales in Left Side assign database column name to right side
                         $UserFirstName=$row['FirstName'];
                         $UserLastName=$row['LastName'];
-                        echo $sql1="UPDATE tbl_users SET reset_token='$resettoken' WHERE UserId='$ResetUserId'";
+                         $sql1="UPDATE tbl_users SET reset_token='$resettoken' WHERE UserId='$ResetUserId'";
                     //tbl_users table eke user id ekata relevant token eka update wenawa
                         $result1=$db->query($sql1);
                     //array ekakata results assign wena eka
@@ -151,8 +151,8 @@ include 'header.php';
                         send_email($to, $toname, $subject,$body,$alt);
                     //email eka send wena eka 
 
-                        echo "success";
-                        print_r($_SESSION);
+                         "success";
+                        // print_r($_SESSION);
                         header("Location:resetpassword.php");                                                               
                     //submit eka press unama ilaga wenna one de
                 }

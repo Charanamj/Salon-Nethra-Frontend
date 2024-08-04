@@ -21,6 +21,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $message['time_slot_name'] = "This date cannot enter in the database";    
         }
     }
+    if ((!empty($time_slot_name)) ) {
+        $loggedCustomerId = @$_SESSION['cLogId'];
+         $sql2 = "SELECT 
+                (SELECT COUNT(*) 
+                FROM tbl_appointments 
+                WHERE customer_id='$loggedCustomerId' 
+                AND booking_date='$bookeddate' 
+                AND time_slot_id='$time_slot_name') as count, 
+                tbl_appointments.*
+            FROM tbl_appointments
+            WHERE customer_id='$loggedCustomerId' 
+            AND booking_date='$bookeddate' 
+            AND time_slot_id='$time_slot_name'";
+        $db = dbConn();
+        $results2 = $db->query($sql2);
+        $row2 = $results2->fetch_assoc();
+        @$abc = $row2 ['count'];
+
+        if (@$abc == null ) {
+            "only one record have"; 
+        }else{
+            // $message['time_slot_name'] = "The bookings were completed to this date !.";
+            echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Allocated time slots for the slected date is already booked !.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = 'http://localhost/SMS/web/login.php?app=yes'; // Redirect to login page
+                });
+        </script>";    
+        }
+    }
     if (!isset($_SESSION['cLogId'])) {
         $message['time_slot_namez'] = "This date cannot enter in the database";
         echo "<script>
@@ -53,9 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $row1 = $result1->fetch_assoc();
         $servicecategory = $row1['service_category_id'];
         $appstatus = 1;
-        $sql = "INSERT INTO tbl_appointments(appointment_no, service_category, service_name, customer_id, booking_date, time_slot_id, appointment_status, add_date) 
-                        VALUES ('$appointmentNo','$servicecategory','$service_name','$loggedCustomerId','$bookDate','$time_slot_name','$appstatus','$AddDate')";
-        $db->query($sql);
+        
+        $_SESSION['selectedtimeslot'] = $time_slot_name;
 
         $_SESSION["appno"] = $appointmentNo;
         $_SESSION["servicename"] = $service_name;
@@ -64,11 +97,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>
                 Swal.fire({
                     title: 'Success!',
-                    text: 'You have sucessfully made a booking !.',
+                    text: 'Time slot allocated to the selected date is available for booking !.',
                     icon: 'success',
-                    confirmButtonText: 'OK'
+                    confirmButtonText: 'Confirm'
                 }).then(() => {
-                    window.location.href = 'http://localhost/SMS/web/appointments/confirmappointment.php'; // Redirect to success page
+                    window.location.href = 'http://localhost/SMS/web/appointments/processappointment.php'; // Redirect to success page
                 });
         </script>";
     }
@@ -113,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $db = dbConn();
                         $dayId= $_SESSION["dayId"];
                         $IdenDay= $dayId;
-                        $sql = "SELECT * FROM  tbl_time_slots WHERE time_slot_day_id = $IdenDay ";
+                         $sql = "SELECT * FROM  tbl_time_slots WHERE time_slot_day_id = $IdenDay ";
                         $result = $db->query($sql);
                         ?>
                         <label for="exampleInputName1">Selected Time Slot</label>
@@ -123,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             while ($row = $result->fetch_assoc()) {
                                 ?>
                                 <option value="<?= $row['time_slot_id'] ?>">
-                                    <?= $row['time_slot_name'] . " " . " [ ". $row['time_slot_start_time'] . " - " . " " . $row['time_slot_end_time'] . " ] "?>
+                                    <?= $row['time_slot_name'] . " " . " [ ". $row['time_slot_id'] . " [ ". $row['time_slot_start_time'] . " - " . " " . $row['time_slot_end_time'] . " ] "?>
                                 </option>
                                 <?php
                             }
@@ -132,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <span class="text-danger"><?= @$message['time_slot_name'] ?></span>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        <button type="submit" class="btn btn-primary me-2">Search Availability</button>
                     </div>
                 </form>
             </div>
