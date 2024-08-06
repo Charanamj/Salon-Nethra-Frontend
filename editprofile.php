@@ -182,7 +182,7 @@ include 'assets/phpmail/mail.php';
                             //Use bcrypt hasing algorithem
                             //$pw = password_hash($password, PASSWORD_DEFAULT);
                             $db = dbConn();
-                            $AddDate = date('y-m-d');
+                            $AddDate = date('Y-m-d');
                             $status = 1;
                             $customer_verification = rand(100000, 999999);
                             $_SESSION['CNO'] = $customer_verification;

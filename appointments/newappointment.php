@@ -14,9 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     if (!empty($bookingdate)) {
-        $bookdate = date('y-m-d');
+        $bookdate = date('Y-m-d');
         $bookdate = strtotime($bookingdate);
-        $currentdate = date('y-m-d');
+        $currentdate = date('Y-m-d');
         $currentdate = strtotime($currentdate);
         $dayId = date('w', strtotime($bookingdate));
         $_SESSION["dayId"] = $dayId;
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <div class="form-outline ">
                             <div class="form-outline mb-2">
                                 <label class="form-label" for="form1Example13">Booking Date</label>
-                                <input type="date" class="form-control form-control-sm date-input" id="date" name="bookingdate"
+                                <input type="date" class="form-control form-control-sm date-input" name="bookingdate"
                                     min='<?= date("Y-m-d") ?>' max='<?php echo date("Y-m-d", strtotime("+14 days")); ?>'
                                     value="<?= @$bookingdate; ?>">
                                 <div class="text-danger"> <?= @$messages['bookingdate']; ?></div>

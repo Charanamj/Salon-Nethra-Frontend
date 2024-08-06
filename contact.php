@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && @$action == 'addresponse') {
     if (empty($messages)) {
         $db = dbConn();
         $status = 1;
-        $AddDate = date('y-m-d');
+        $AddDate = date('Y-m-d');
         $sql = "INSERT INTO `tbl_inquries`(inquiry_status, customer_name, customer_email, 
         customer_message, inquiry_add_date) VALUES ('$status', '$customer_name',
         '$customer_email','$customer_message','$AddDate')";

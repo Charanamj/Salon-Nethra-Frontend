@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     if (empty($message)) {
         $db = dbConn();
-        $AddDate = date('y-m-d');
+        $AddDate = date('Y-m-d');
         $_SESSION["service_id"] = $service_name;
         $appointmentNo = date('YmdHis');
         $_SESSION["selectedappno"] = $appointmentNo;
@@ -146,7 +146,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $db = dbConn();
                         $dayId= $_SESSION["dayId"];
                         $IdenDay= $dayId;
-                         $sql = "SELECT * FROM  tbl_time_slots WHERE time_slot_day_id = $IdenDay ";
+                        if($IdenDay == 0){
+                            $IdenDay = 7;
+                        }else{
+                            $IdenDay = $IdenDay;
+                        }
+                        $sql = "SELECT * FROM  tbl_time_slots WHERE time_slot_day_id = $IdenDay ";
                         $result = $db->query($sql);
                         ?>
                         <label for="exampleInputName1">Selected Time Slot</label>

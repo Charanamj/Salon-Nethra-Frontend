@@ -9,18 +9,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($message)) {
         $db = dbConn();
-        $AddDate = date('y-m-d');
+        $AddDate = date('Y-m-d');
         $appointment_status = 1;
         $loggedCustomerId = $_SESSION['cLogId'];
+        $customername = $_SESSION['cLogFirstname'] . $_SESSION['cLogLastname'];
         $customer_Selected_Timeslot=$_SESSION['selectedtimeslot'];
         //  $sql1 = "SELECT * FROM tbl_appointments WHERE customer_id='$loggedCustomerId' AND booking_date='$bookeddate' 
         // AND time_slot_id='$time_slot_name'";
         // $db->query($sql1);
         // $result1 = $db->query($sql1);
-         $sql = "INSERT INTO tbl_appointments(appointment_no, service_category, service_name, customer_id, booking_date,
-         time_slot_id, appointment_status, add_date) 
-        VALUES ('$appointmentNo','$service_category_id','$service_name','$loggedCustomerId','$bookeddate','$customer_Selected_Timeslot',
-        '$appointment_status','$AddDate')";
+        echo $sql = "INSERT INTO tbl_appointments(appointment_no, service_category, service_name, customer_id, customer_name, booking_date,
+        time_slot_id, appointment_status, add_date, appointment_price, app_advance_pay, app_remain_pay, app_staff_pay, 
+        app_utility_pay, app_profit_pay) 
+        VALUES ('$appointmentNo','$service_category_id','$service_name','$loggedCustomerId', '$customername', '$bookeddate','$customer_Selected_Timeslot',
+        '$appointment_status','$AddDate','$service_price','$advancepay','$remainpay','$service_staff_fee','$staff_utility_fee','$staff_profit_fee')";
         $db->query($sql);
 
         
@@ -138,16 +140,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php
                         $db = dbConn();
                         @$serviceName = $_SESSION["servicename"];
-                        $sql = "SELECT * FROM  tbl_services WHERE service_id='$serviceName'"; 
+                        echo $sql = "SELECT * FROM  tbl_services WHERE service_id='$serviceName'"; 
                         $result = $db->query($sql);
                         $row = $result->fetch_assoc();
                         $selectedservicename = $row['service_name'];
                         $selectedservicecat = $row['service_category_id'];
+                        $stafffee = $row['service_staff_fee'];
+                        $utilityfee = $row['staff_utility_fee'];
+                        $Totalprofit = $row['staff_profit_fee'];
                         ?>
                         <label for="exampleInputName1">Service Name</label>
-                        <input type="text" id="exampleInputName1" name="service_name" value="<?= $selectedservicename ?>" readonly>
-                        <input type="hidden" id="exampleInputName1" name="service_name" value="<?= $serviceName ?>">    
-                        <input type="hidden" id="exampleInputName1" name="service_category_id" value="<?= $selectedservicecat ?>">                       
+                        <input type="text" name="service_name" value="<?= $selectedservicename ?>" readonly>
+                        <input type="hidden" name="service_name" value="<?= $serviceName ?>">    
+                        <input type="hidden" name="service_category_id" value="<?= $selectedservicecat ?>">
+                        <input type="text" name="service_staff_fee" value="<?= $stafffee ?>">
+                        <input type="text" name="staff_utility_fee" value="<?= $utilityfee ?>">
+                        <input type="text" name="staff_profit_fee" value="<?= $Totalprofit ?>">                       
                     </div>
                     <div class="form-group mt-3">
                     <?php
@@ -155,14 +163,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $dayId= $_SESSION["dayId"];
                         $IdenDay= $dayId;
                         $customer_Selected_Timeslot = $_SESSION['selectedtimeslot'];
-                         $sql10 = "SELECT * FROM  tbl_time_slots WHERE time_slot_id = $customer_Selected_Timeslot ";
+                        $sql10 = "SELECT * FROM  tbl_time_slots WHERE time_slot_id = $customer_Selected_Timeslot ";
                         $result10 = $db->query($sql10);
                         $row10 = $result10->fetch_assoc();
                          $row10["time_slot_id"];
                         ?>
                         <label for="exampleInputName1">Time Slot Name</label>
-                        <input type="text" id="exampleInputName1" name="" value="<?= $row10["time_slot_name"] ?>" readonly>
-                        <input type="hidden" id="exampleInputName1" name="time_slot_name" value="<?= $row10["time_slot_id"] ?>"> 
+                        <input type="text" name="" value="<?= $row10["time_slot_name"] ?>" readonly>
+                        <input type="hidden" name="time_slot_name" value="<?= $row10["time_slot_id"] ?>"> 
                     </div>
                     <div class="form-group mt-3">
                     <?php
@@ -187,13 +195,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $selectedserviceprice = $row['service_price'];
                         ?>
                         <label for="exampleInputName1">Service Price</label>
-                        <input type="text" id="exampleInputName1" name="serviceprice" value="Rs. <?= $selectedserviceprice ?>" readonly>
-                        <input type="hidden" id="exampleInputName1" name="serviceprice" value="Rs. <?= $selectedserviceprice ?>"> 
+                        <input type="text" id="exampleInputName1" name="service_price" value= "<?= $selectedserviceprice ?>" readonly>
+                        <input type="hidden" id="exampleInputName1" name="service_price" value="<?= $selectedserviceprice ?>"> 
                     </div>
                     <div class="form-group mt-3">
                         <label for="exampleInputName1">Advance to be made</label>
-                        <input type="text" id="exampleInputName1" name="serviceprice" value="Rs. <?= ($selectedserviceprice/100)*20 ?>" readonly>
-                        <input type="hidden" id="exampleInputName1" name="serviceprice" value="Rs. <?= ($selectedserviceprice/100)*20 ?>"> 
+                        <?php
+                        $advancePay = ($selectedserviceprice/100)*20;
+                        $remainPay = $selectedserviceprice - $advancePay;
+                        ?>
+                        <input type="text" id="exampleInputName1" name="advancepay" value="<?= $advancePay ?>" readonly>
+                        <input type="hidden" id="exampleInputName1" name="advancepay" value="<?= $advancePay ?>">
+                        <input type="text" id="exampleInputName1" name="remainpay" value="<?= $remainPay ?>">
                     </div>
                     <div>
                         <button type="submit" class="btn btn-primary me-2">Book Appointment</button>

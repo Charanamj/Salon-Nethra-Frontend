@@ -47,14 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($message)) {
         $db = dbConn();
-        $AddDate = date('y-m-d');
+        $AddDate = date('Y-m-d');
         $appointment_status = 2;
         $loggedCustomerId = $_SESSION['cLogId'];      
         $sql = "INSERT INTO tbl_payments(customer_id, appointment_id, payment_slip_file, date) 
                        VALUES ('$loggedCustomerId','$appid','$new_slip','$AddDate')";
         $db->query($sql);
 
-        $sql1 = "UPDATE tbl_appointments SET appointment_status= '$appointment_status' WHERE appointment_id= '$appid'";
+        $sql1 = "UPDATE tbl_appointments SET appointment_status= '$appointment_status', advance_payment_slip='$new_slip' 
+         WHERE appointment_id= '$appid'";
         $db->query($sql1);
 
         echo "<script>
@@ -70,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
 <main id="main">
     <section>
         <div class="container" data-aos="fade-up">
@@ -187,9 +189,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                     <div>
                         <button type="submit" class="btn btn-primary me-2">Confirm</button>
-                    </div>
+                </div>
                 </form>
-            </div></div>
+            </div>
+        </div>
 </div>
 <br>
             <h5>Conditions</h5><br>

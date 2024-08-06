@@ -86,7 +86,7 @@ if (!empty($_SESSION['cLogEmail'])) {
 <section>
       <div class="container" data-aos="fade-up">
 
-        <div class="section-title">
+        <div class="section-header">
           <h2>Log in</h2>
           <p>Log in From Here</p>
         </div>

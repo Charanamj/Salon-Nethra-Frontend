@@ -8,9 +8,9 @@ include 'assets/phpmail/mail.php';
     <section>
         <div class="container" data-aos="fade-up">
 
-            <div class="section-title">
-                <h2>Customer</h2>
-                <p>Register</p>
+            <div class="section-header">
+                <h2>Registration</h2>
+                <p>Customer Registration</p>
             </div>
 
             <div class="row justify-content-center">
@@ -55,16 +55,20 @@ include 'assets/phpmail/mail.php';
                     if (empty($customer_mobilenumber)) {
                         $message['customer_mobilenumber'] = "Mobile number should not be blank...!";
                     }
+                    if (!empty($customer_mobilenumber)) {
+                        if (strlen($customer_mobilenumber) != 9) {
+                            $message['customer_mobilenumber'] = "Mobile number must be exactly 9 digits and cannot start with zero..!";
+                        } elseif ($customer_mobilenumber[0] == '0') {
+                            $message['customer_mobilenumber'] = "Mobile number cannot start with zero..!";
+                        }
+                    }
                     if (empty($customer_nic)) {
                         $message['customer_nic'] = "Customer NIC should not be blank...!";
                     }
                     if (!empty($customer_nic)) {
-
-                        $niclength = strlen($customer_nic);
-                        if ($niclength == 10 || $niclength == 12) {
-
-                        } else {
-                            $message['customer_nic'] = "The NIC  length should 10 or 12!";
+                        $nicRegex = '/^[0-9]{9}[vVxX]$|^[0-9]{12}$/';
+                        if (!preg_match($nicRegex, $customer_nic)) {
+                            $message['customer_nic'] = "Invalid NIC No...! NIC No should be 9 numbers with 'V'/'X' (Old NIC) or 12 numbers (New NIC)";
                         }
                     }
                     if (!empty($customer_nic)) {
@@ -182,8 +186,9 @@ include 'assets/phpmail/mail.php';
                         if (empty($message)) {
                             //Use bcrypt hasing algorithem
                             //$pw = password_hash($password, PASSWORD_DEFAULT);
+                            $customer_mobilenumber = '+94' . $customer_mobilenumber;
                             $db = dbConn();
-                            $AddDate = date('y-m-d');
+                            $AddDate = date('Y-m-d');
                             $status = 1;
                             $customer_verification = rand(100000, 999999);
                             $_SESSION['CNO'] = $customer_verification;
@@ -351,7 +356,7 @@ include 'assets/phpmail/mail.php';
                     </div>
                     <div class="form-group mt-3">
                         <label for="mobno">Mobile No.</label>
-                        <input type="text" class="form-control border border-1 border-dark" name="customer_mobilenumber"
+                        <input type="number" class="form-control border border-1 border-dark" name="customer_mobilenumber"
                             value="<?= @$customer_mobilenumber ?>" id="mobile_no"
                             placeholder="Enter your mobile number here">
                         <span class="text-danger"><?= @$message['customer_mobilenumber'] ?></span>
